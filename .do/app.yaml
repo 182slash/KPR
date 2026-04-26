@@ -1,0 +1,72 @@
+name: kpr-backend
+region: sgp
+services:
+  - name: api
+    github:
+      repo: 182slash/Bataknese
+      branch: main
+      deploy_on_push: true
+    source_dir: backend
+    dockerfile_path: backend/Dockerfile
+    http_port: 4000
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 20
+      period_seconds: 30
+      timeout_seconds: 10
+      success_threshold: 1
+      failure_threshold: 3
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "4000"
+      - key: DATABASE_URL
+        value: ${DATABASE_URL}
+        type: SECRET
+      - key: DIRECT_URL
+        value: ${DIRECT_URL}
+        type: SECRET
+      - key: JWT_SECRET
+        value: ${JWT_SECRET}
+        type: SECRET
+      - key: JWT_EXPIRES_IN
+        value: "7d"
+      - key: ALLOWED_ORIGINS
+        value: "https://kpr.band,https://www.kpr.band"
+      - key: CLOUDINARY_CLOUD_NAME
+        value: ${CLOUDINARY_CLOUD_NAME}
+        type: SECRET
+      - key: CLOUDINARY_API_KEY
+        value: ${CLOUDINARY_API_KEY}
+        type: SECRET
+      - key: CLOUDINARY_API_SECRET
+        value: ${CLOUDINARY_API_SECRET}
+        type: SECRET
+      - key: CLOUDINARY_UPLOAD_PRESET
+        value: kpr_uploads
+      - key: MIDTRANS_SERVER_KEY
+        value: ${MIDTRANS_SERVER_KEY}
+        type: SECRET
+      - key: MIDTRANS_CLIENT_KEY
+        value: ${MIDTRANS_CLIENT_KEY}
+        type: SECRET
+      - key: MIDTRANS_IS_PRODUCTION
+        value: "true"
+      - key: RESEND_API_KEY
+        value: ${RESEND_API_KEY}
+        type: SECRET
+      - key: EMAIL_FROM
+        value: noreply@kpr.band
+      - key: EMAIL_BOOKING_TO
+        value: booking@kpr.band
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: RATE_LIMIT_MAX_CONTACT
+        value: "5"
+      - key: RATE_LIMIT_MAX_AUTH
+        value: "10"
+    routes:
+      - path: /

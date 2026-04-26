@@ -1,0 +1,230 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Album {
+  id              String   @id @default(uuid())
+  slug            String   @unique
+  title           String
+  releaseYear     Int      @map("release_year")
+  coverUrl        String   @map("cover_url")
+  coverPublicId   String?  @map("cover_public_id")
+  bandcampUrl     String?  @map("bandcamp_url")
+  spotifyUrl      String?  @map("spotify_url")
+  appleMusicUrl   String?  @map("apple_music_url")
+  youtubeMusicUrl String?  @map("youtube_music_url")
+  description     String?
+  isPublished     Boolean  @default(true) @map("is_published")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  media           Media[]
+
+  @@map("albums")
+}
+
+model Event {
+  id              String      @id @default(uuid())
+  title           String
+  venue           String
+  city            String
+  country         String      @default("Indonesia")
+  eventDate       DateTime    @map("event_date")
+  doorsOpen       String?     @map("doors_open")
+  posterUrl       String?     @map("poster_url")
+  posterPublicId  String?     @map("poster_public_id")
+  ticketUrl       String?     @map("ticket_url")
+  ticketPriceMin  Int?        @map("ticket_price_min")
+  ticketPriceMax  Int?        @map("ticket_price_max")
+  status          EventStatus @default(upcoming)
+  notes           String?
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@index([eventDate])
+  @@index([status])
+  @@index([city])
+  @@map("events")
+}
+
+enum EventStatus {
+  upcoming
+  sold_out
+  cancelled
+  past
+}
+
+model Product {
+  id          String          @id @default(uuid())
+  slug        String          @unique
+  name        String
+  description String?
+  category    ProductCategory
+  price       Int
+  isFeatured  Boolean         @default(false) @map("is_featured")
+  isPublished Boolean         @default(true) @map("is_published")
+  stockTotal  Int             @default(0) @map("stock_total")
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  images      ProductImage[]
+  variants    ProductVariant[]
+  orderItems  OrderItem[]
+
+  @@index([category])
+  @@index([isFeatured])
+  @@map("products")
+}
+
+enum ProductCategory {
+  apparel
+  poster
+  accessory
+  vinyl
+  bundle
+}
+
+model ProductImage {
+  id        String  @id @default(uuid())
+  productId String  @map("product_id")
+  url       String
+  publicId  String? @map("public_id")
+  sortOrder Int     @default(0) @map("sort_order")
+  isPrimary Boolean @default(false) @map("is_primary")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+model ProductVariant {
+  id         String   @id @default(uuid())
+  productId  String   @map("product_id")
+  sku        String?  @unique
+  label      String
+  stock      Int      @default(0)
+  priceDelta Int      @default(0) @map("price_delta")
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@map("product_variants")
+}
+
+model Order {
+  id                    String      @id @default(uuid())
+  orderNumber           String      @unique @map("order_number")
+  status                OrderStatus @default(pending)
+  customerName          String      @map("customer_name")
+  customerEmail         String      @map("customer_email")
+  customerPhone         String?     @map("customer_phone")
+  shippingAddress       String      @map("shipping_address")
+  shippingCity          String      @map("shipping_city")
+  shippingPostal        String?     @map("shipping_postal")
+  shippingProvince      String?     @map("shipping_province")
+  subtotal              Int
+  shippingCost          Int         @default(0) @map("shipping_cost")
+  total                 Int
+  paymentMethod         String?     @map("payment_method")
+  midtransOrderId       String?     @map("midtrans_order_id")
+  midtransTransactionId String?     @map("midtrans_transaction_id")
+  paidAt                DateTime?   @map("paid_at")
+  notes                 String?
+  createdAt             DateTime    @default(now()) @map("created_at")
+  updatedAt             DateTime    @updatedAt @map("updated_at")
+  items                 OrderItem[]
+
+  @@index([customerEmail])
+  @@index([status])
+  @@map("orders")
+}
+
+enum OrderStatus {
+  pending
+  paid
+  processing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+model OrderItem {
+  id           String          @id @default(uuid())
+  orderId      String          @map("order_id")
+  productId    String          @map("product_id")
+  variantId    String?         @map("variant_id")
+  productName  String          @map("product_name")
+  variantLabel String?         @map("variant_label")
+  quantity     Int
+  unitPrice    Int             @map("unit_price")
+  totalPrice   Int             @map("total_price")
+  order        Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product         @relation(fields: [productId], references: [id])
+  variant      ProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+model Media {
+  id          String    @id @default(uuid())
+  type        MediaType
+  title       String?
+  url         String
+  publicId    String?   @map("public_id")
+  thumbnailUrl String?  @map("thumbnail_url")
+  width       Int?
+  height      Int?
+  takenAt     DateTime? @map("taken_at")
+  albumId     String?   @map("album_id")
+  isPublished Boolean   @default(true) @map("is_published")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  album       Album?    @relation(fields: [albumId], references: [id])
+
+  @@index([type])
+  @@map("media")
+}
+
+enum MediaType {
+  photo
+  video
+}
+
+model ContactMessage {
+  id           String    @id @default(uuid())
+  name         String
+  email        String
+  phone        String?
+  organization String?
+  eventType    String?   @map("event_type")
+  eventDate    DateTime? @map("event_date")
+  city         String?
+  venue        String?
+  budgetRange  String?   @map("budget_range")
+  message      String
+  isRead       Boolean   @default(false) @map("is_read")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+model AdminUser {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  passwordHash String   @map("password_hash")
+  name        String?
+  role        AdminRole @default(admin)
+  lastLoginAt DateTime? @map("last_login_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}
+
+enum AdminRole {
+  admin
+  superadmin
+}
