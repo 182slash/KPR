@@ -145,7 +145,7 @@ export default function HeroVideoSection() {
         {/* ── Fallback gradient background (shown while video loads or on error) ── */}
         <div
           className="absolute inset-0 z-[1] transition-opacity duration-700 pointer-events-none"
-          style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+          style={{ opacity: 0 }}
           aria-hidden="true"
         >
           <div className="absolute inset-0 bg-bg-base" />
