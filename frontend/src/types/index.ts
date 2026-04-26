@@ -5,11 +5,11 @@ export interface Album {
   title: string;
   releaseYear: number;
   coverUrl: string;
-  description?: string;
-  bandcampUrl?: string;
-  spotifyUrl?: string;
-  appleMusicUrl?: string;
-  youtubeMusicUrl?: string;
+  description?: string | null;
+  bandcampUrl?: string | null;
+  spotifyUrl?: string | null;
+  appleMusicUrl?: string | null;
+  youtubeMusicUrl?: string | null;
   isPublished: boolean;
   createdAt: string;
 }
@@ -24,13 +24,13 @@ export interface Event {
   city: string;
   country: string;
   eventDate: string;
-  doorsOpen?: string;
-  posterUrl?: string;
-  ticketUrl?: string;
-  ticketPriceMin?: number;
-  ticketPriceMax?: number;
+  doorsOpen?: string | null;
+  posterUrl?: string | null;
+  ticketUrl?: string | null;
+  ticketPriceMin?: number | null;
+  ticketPriceMax?: number | null;
   status: EventStatus;
-  notes?: string;
+  notes?: string | null;
   createdAt: string;
 }
 
@@ -46,7 +46,7 @@ export interface ProductImage {
 
 export interface ProductVariant {
   id: string;
-  sku?: string;
+  sku?: string | null;
   label: string;
   stock: number;
   priceDelta: number;
@@ -56,7 +56,7 @@ export interface Product {
   id: string;
   slug: string;
   name: string;
-  description?: string;
+  description?: string | null;
   category: ProductCategory;
   price: number;
   isFeatured: boolean;
@@ -90,7 +90,14 @@ export interface CartState {
 }
 
 // Order types
-export type OrderStatus = 'pending' | 'paid' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'refunded';
+export type OrderStatus =
+  | 'pending'
+  | 'paid'
+  | 'processing'
+  | 'shipped'
+  | 'delivered'
+  | 'cancelled'
+  | 'refunded';
 
 export interface OrderItem {
   productId: string;
@@ -133,13 +140,13 @@ export type MediaType = 'photo' | 'video';
 export interface Media {
   id: string;
   type: MediaType;
-  title?: string;
+  title?: string | null;
   url: string;
-  thumbnailUrl?: string;
-  width?: number;
-  height?: number;
-  takenAt?: string;
-  albumId?: string;
+  thumbnailUrl?: string | null;
+  width?: number | null;
+  height?: number | null;
+  takenAt?: string | null;
+  albumId?: string | null;
   isPublished: boolean;
   sortOrder: number;
   createdAt: string;
