@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/index';
 import { formatEventDateShort, formatIDR } from '@/lib/utils';
 import { staggerContainer, staggerItem, fadeInUp, letterReveal } from '@/lib/motion';
+import { StarField, Rocket, HeroTagline } from '@/lib/heroAnimation';
 
 const BAND_NAME_LINE1 = 'KELOMPOK';
 const BAND_NAME_LINE2 = 'PENERBANG';
@@ -46,8 +47,15 @@ export default function HomePage() {
     target: heroRef,
     offset: ['start start', 'end start'],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const starsY        = useTransform(scrollYProgress, [0, 1],    ['0%',   '60%']);
+  const rocketY       = useTransform(scrollYProgress, [0, 1],    ['0%',  '-80%']);
+  const rocketOpacity = useTransform(scrollYProgress, [0, 0.6],  [1, 0]);
+  const nameOpacity   = useTransform(scrollYProgress, [0, 0.3],  [1, 0]);
+  const nameY         = useTransform(scrollYProgress, [0, 0.3],  ['0%', '-10%']);
+  const tagOpacity    = useTransform(scrollYProgress, [0.2, 0.5],[0, 1]);
+  const tagY          = useTransform(scrollYProgress, [0.2, 0.5],['20%', '0%']);
+  const opacity       = useTransform(scrollYProgress, [0, 0.8],  [1, 0]);
 
   const { data: albumsRes } = useSWR('albums', () => albumsApi.list());
   const { data: eventsRes } = useSWR('events-upcoming', () =>
@@ -67,16 +75,11 @@ export default function HomePage() {
         aria-label="Hero"
       >
         {/* Background */}
-        <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
-          <div className="absolute inset-0 bg-gradient-to-b from-bg-base via-bg-base/80 to-bg-base z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_40%,rgba(32,96,160,0.12),transparent)] z-10" />
-          {/* Static atmospheric lines */}
-          <div className="absolute inset-0 z-5 opacity-[0.03]"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(0deg, #4080c0 0px, #4080c0 1px, transparent 1px, transparent 80px)',
-            }}
-          />
-        </motion.div>
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#050810] via-[#0a0e1a] to-bg-base" />
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_40%,rgba(32,96,160,0.14),transparent)]" />
+
+        {/* Star field */}
+        <StarField starsY={starsY} />
 
         {/* Decorative corner elements */}
         <div className="absolute top-24 left-4 sm:left-8 z-10 flex flex-col gap-1">
@@ -104,6 +107,9 @@ export default function HomePage() {
           ))}
         </div>
 
+        {/* Rocket */}
+        <Rocket rocketY={rocketY} rocketOpacity={rocketOpacity} />
+
         {/* Hero content */}
         <motion.div
           className="relative z-10 flex flex-col items-center text-center px-4"
@@ -119,30 +125,35 @@ export default function HomePage() {
             Jakarta · Est. 2011
           </motion.p>
 
-          {/* Band name — massive staggered display type */}
-          <h1 className="font-display text-hero text-text-primary leading-none text-shadow-glow select-none">
-            <HeroLetters text={BAND_NAME_LINE1} delay={0.3} />
-            <HeroLetters text={BAND_NAME_LINE2} delay={0.6} />
-            <span className="flex overflow-hidden text-accent-bright">
-              {BAND_NAME_LINE3.split('').map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={letterReveal}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.9 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="inline-block"
-                  style={{ willChange: 'transform' }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          </h1>
+          {/* Band name + tagline swap */}
+          <div className="relative">
+            <motion.div style={{ opacity: nameOpacity, y: nameY }}>
+              <h1 className="font-display text-hero text-text-primary leading-none text-shadow-glow select-none">
+                <HeroLetters text={BAND_NAME_LINE1} delay={0.3} />
+                <HeroLetters text={BAND_NAME_LINE2} delay={0.6} />
+                <span className="flex overflow-hidden text-accent-bright">
+                  {BAND_NAME_LINE3.split('').map((char, i) => (
+                    <motion.span
+                      key={i}
+                      variants={letterReveal}
+                      initial="hidden"
+                      animate="visible"
+                      transition={{
+                        duration: 0.6,
+                        delay: 0.9 + i * 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block"
+                      style={{ willChange: 'transform' }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+              </h1>
+            </motion.div>
+            <HeroTagline tagOpacity={tagOpacity} tagY={tagY} />
+          </div>
 
           {/* Genre tags */}
           <motion.div
