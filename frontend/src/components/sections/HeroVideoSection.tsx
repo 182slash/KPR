@@ -132,7 +132,7 @@ export default function HeroVideoSection() {
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover z-0"
-          src="/images/hero-video.mp4"
+          src="/{fonts,images,icons}/hero-video.mp4"
           muted
           autoPlay
           playsInline
