@@ -1,8 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Play, ChevronDown } from 'lucide-react';
 import useSWR from 'swr';
 import { albumsApi, eventsApi } from '@/lib/api';
@@ -10,7 +11,6 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/index';
 import { formatEventDateShort, formatIDR } from '@/lib/utils';
 import { staggerContainer, staggerItem, fadeInUp, letterReveal } from '@/lib/motion';
-import BackgroundHero from '@/components/sections/BackgroundHero';
 
 const BAND_NAME_LINE1 = 'KELOMPOK';
 const BAND_NAME_LINE2 = 'PENERBANG';
@@ -41,6 +41,14 @@ function HeroLetters({ text, delay = 0 }: { text: string; delay?: number }) {
 }
 
 export default function HomePage() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   const { data: albumsRes } = useSWR('albums', () => albumsApi.list());
   const { data: eventsRes } = useSWR('events-upcoming', () =>
     eventsApi.list({ upcoming: true, limit: 3 })
@@ -53,7 +61,153 @@ export default function HomePage() {
   return (
     <>
       {/* ─── HERO ─── */}
-      <BackgroundHero />
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+        aria-label="Hero"
+      >
+        {/* Background */}
+        <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+          <div className="absolute inset-0 bg-gradient-to-b from-bg-base via-bg-base/80 to-bg-base z-10" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_40%,rgba(32,96,160,0.12),transparent)] z-10" />
+          {/* Static atmospheric lines */}
+          <div className="absolute inset-0 z-5 opacity-[0.03]"
+            style={{
+              backgroundImage: 'repeating-linear-gradient(0deg, #4080c0 0px, #4080c0 1px, transparent 1px, transparent 80px)',
+            }}
+          />
+        </motion.div>
+
+        {/* Decorative corner elements */}
+        <div className="absolute top-24 left-4 sm:left-8 z-10 flex flex-col gap-1">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ delay: 1.2 + i * 0.06, duration: 0.4 }}
+              className="h-px bg-accent/40 origin-left"
+              style={{ width: `${20 - i * 2}px` }}
+            />
+          ))}
+        </div>
+        <div className="absolute top-24 right-4 sm:right-8 z-10 flex flex-col gap-1 items-end">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ delay: 1.2 + i * 0.06, duration: 0.4 }}
+              className="h-px bg-accent/40 origin-right"
+              style={{ width: `${20 - i * 2}px` }}
+            />
+          ))}
+        </div>
+
+        {/* Hero content */}
+        <motion.div
+          className="relative z-10 flex flex-col items-center text-center px-4"
+          style={{ opacity }}
+        >
+          {/* Year / origin eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="eyebrow mb-8"
+          >
+            Jakarta · Est. 2011
+          </motion.p>
+
+          {/* Band name — massive staggered display type */}
+          <h1 className="font-display text-hero text-text-primary leading-none text-shadow-glow select-none">
+            <HeroLetters text={BAND_NAME_LINE1} delay={0.3} />
+            <HeroLetters text={BAND_NAME_LINE2} delay={0.6} />
+            <span className="flex overflow-hidden text-accent-bright">
+              {BAND_NAME_LINE3.split('').map((char, i) => (
+                <motion.span
+                  key={i}
+                  variants={letterReveal}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.9 + i * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="inline-block"
+                  style={{ willChange: 'transform' }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          </h1>
+
+          {/* Genre tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4, duration: 0.8 }}
+            className="flex flex-wrap justify-center gap-2 mt-8 mb-10"
+          >
+            {['Acid Rock', 'Heavy Metal', 'Psychedelic Rock', 'Hard Rock'].map(
+              (genre) => (
+                <span
+                  key={genre}
+                  className="font-mono text-xs text-text-faint uppercase tracking-widest border border-text-faint/20 px-3 py-1 rounded-sm"
+                >
+                  {genre}
+                </span>
+              )
+            )}
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 0.6 }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <Button href="/discography" size="lg" leftIcon={<Play size={16} />}>
+              Listen Now
+            </Button>
+            <Button
+              href="/events"
+              variant="outline"
+              size="lg"
+              rightIcon={<ArrowRight size={16} />}
+            >
+              Upcoming Shows
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 0.8 }}
+          onClick={() =>
+            document
+              .getElementById('latest-release')
+              ?.scrollIntoView({ behavior: 'smooth' })
+          }
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-text-faint hover:text-text-muted transition-colors duration-200 cursor-pointer"
+          aria-label="Scroll down"
+        >
+          <span className="font-mono text-[10px] uppercase tracking-widest">
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+          >
+            <ChevronDown size={16} />
+          </motion.div>
+        </motion.button>
+      </section>
 
       {/* ─── LATEST RELEASE ─── */}
       {latestAlbum && (

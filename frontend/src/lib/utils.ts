@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { format, parseISO, isFuture, isPast } from 'date-fns';
-import { id as idLocale } from 'date-fns/locale/id';
+import { id as idLocale } from 'date-fns/locale';
 
 // Class name merger
 export function cn(...inputs: ClassValue[]) {
