@@ -55,7 +55,7 @@ export default function BackgroundHero() {
 
       {/* ── Dark overlay — keeps text readable ───────────────────────────── */}
       <div
-        className="absolute inset-0 z-[2] bg-black/50"
+        className="absolute inset-0 z-[2] bg-black/70"
         aria-hidden="true"
       />
 
