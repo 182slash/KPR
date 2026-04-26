@@ -128,25 +128,13 @@ export default function HeroVideoSection() {
         className="sticky top-0 w-full overflow-hidden"
         style={{ height: '100vh' }}
       >
-        {/* ── Video background ─────────────────────────────────────────────── */}
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          src="/{fonts,images,icons}/hero-video.mp4"
-          muted
-          autoPlay
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-          onLoadedMetadata={() => {
-            setVideoReady(true);
-            if (videoRef.current) {
-              videoRef.current.pause();
-              videoRef.current.currentTime = 0;
-            }
-          }}
-          onError={() => setVideoError(true)}
-        />
+        {/* ── Image background ─────────────────────────────────────────────── */}
+<img
+  src="/{fonts,images,icons}/herobackground.png"
+  alt=""
+  className="absolute inset-0 w-full h-full object-cover z-0"
+  aria-hidden="true"
+/>
 
         {/* ── Fallback gradient background (shown while video loads or on error) ── */}
         <div
