@@ -1,86 +1,96 @@
 'use client';
 
-import { useMemo } from 'react';
-import { motion, MotionValue } from 'framer-motion';
+import { useRef } from 'react';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-export interface HeroScrollValues {
-  starsY: MotionValue<string>;
-  rocketY: MotionValue<string>;
-  rocketOpacity: MotionValue<number>;
-  nameOpacity: MotionValue<number>;
-  nameY: MotionValue<string>;
-  tagOpacity: MotionValue<number>;
-  tagY: MotionValue<string>;
+interface HoverRevealProps {
+  frontSrc: string;
+  backSrc: string;
+  alt?: string;
+  maskRadius?: number;
+  className?: string;
 }
 
-// ─── Star field ───────────────────────────────────────────────────────────────
+export function HoverReveal({
+  frontSrc,
+  backSrc,
+  alt = '',
+  maskRadius = 120,
+  className = '',
+}: HoverRevealProps) {
+  const frontRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
-interface Star {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-}
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-function generateStars(count: number): Star[] {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2 + 1,
-    opacity: Math.random() * 0.6 + 0.2,
-  }));
-}
+    if (frontRef.current) {
+      frontRef.current.style.webkitMaskImage = `radial-gradient(circle ${maskRadius}px at ${x}px ${y}px, transparent 100%, black 100%)`;
+      frontRef.current.style.maskImage = `radial-gradient(circle ${maskRadius}px at ${x}px ${y}px, transparent 100%, black 100%)`;
+    }
+    if (cursorRef.current) {
+      cursorRef.current.style.left = `${x}px`;
+      cursorRef.current.style.top = `${y}px`;
+    }
+  };
 
-export function StarField({ starsY, count = 80 }: { starsY: MotionValue<string>; count?: number }) {
-  const stars = useMemo(() => generateStars(count), [count]);
+  const handleMouseLeave = () => {
+    if (frontRef.current) {
+      frontRef.current.style.webkitMaskImage = `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`;
+      frontRef.current.style.maskImage = `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`;
+    }
+    if (cursorRef.current) {
+      cursorRef.current.style.opacity = '0';
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (cursorRef.current) {
+      cursorRef.current.style.opacity = '1';
+    }
+  };
+
   return (
-    <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ y: starsY }}>
-      {stars.map((s) => (
-        <div
-          key={s.id}
-          className="absolute rounded-full bg-white"
-          style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.size, height: s.size, opacity: s.opacity }}
-        />
-      ))}
-    </motion.div>
-  );
-}
-
-// ─── Rocket ───────────────────────────────────────────────────────────────────
-
-export function Rocket({ rocketY, rocketOpacity }: { rocketY: MotionValue<string>; rocketOpacity: MotionValue<number> }) {
-  return (
-    <motion.div className="absolute bottom-28 z-10 text-accent-bright/70" style={{ y: rocketY, opacity: rocketOpacity }}>
-      <svg width="48" height="80" viewBox="0 0 48 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M24 4 C14 4 8 20 8 36 L8 54 L40 54 L40 36 C40 20 34 4 24 4Z" fill="currentColor" opacity="0.9" />
-        <path d="M24 0 L16 18 L32 18Z" fill="currentColor" />
-        <circle cx="24" cy="34" r="6" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
-        <path d="M8 44 L2 58 L8 54Z" fill="currentColor" opacity="0.7" />
-        <path d="M40 44 L46 58 L40 54Z" fill="currentColor" opacity="0.7" />
-        <path d="M16 54 Q18 64 24 70 Q30 64 32 54Z" fill="currentColor" opacity="0.3" />
-        <path d="M19 54 Q21 62 24 67 Q27 62 29 54Z" fill="#f59e0b" opacity="0.7" />
-      </svg>
-    </motion.div>
-  );
-}
-
-// ─── Tagline swap ─────────────────────────────────────────────────────────────
-
-export function HeroTagline({ tagOpacity, tagY }: { tagOpacity: MotionValue<number>; tagY: MotionValue<string> }) {
-  return (
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center pointer-events-none"
-      style={{ opacity: tagOpacity, y: tagY }}
+    <div
+      className={`relative overflow-hidden cursor-none ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
     >
-      <p className="font-display text-4xl sm:text-6xl text-text-primary/80 text-shadow-glow select-none leading-tight text-center">
-        Touring the galaxy
-        <br />
-        <span className="text-accent-bright">since… idk</span>
-      </p>
-    </motion.div>
+      {/* Back image — band member, always visible underneath */}
+      <img
+        src={backSrc}
+        alt={alt}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Front image — astronaut suit, revealed by mask */}
+      <div
+        ref={frontRef}
+        className="absolute inset-0"
+        style={{
+          WebkitMaskImage: `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`,
+          maskImage: `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`,
+        }}
+      >
+        <img
+          src={frontSrc}
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Custom cursor ring */}
+      <div
+        ref={cursorRef}
+        className="absolute pointer-events-none rounded-full border border-white/40 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200"
+        style={{
+          width: maskRadius * 2,
+          height: maskRadius * 2,
+        }}
+      />
+    </div>
   );
 }
