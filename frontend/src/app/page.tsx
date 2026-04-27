@@ -475,7 +475,15 @@ export default function HomePage() {
             </motion.p>
             <motion.h2
               variants={staggerItem}
-              className="font-display text-display text-text-primary mb-6"
+              className="font-display text-display mb-6 relative select-none"
+              style={{
+                background: 'linear-gradient(180deg, #fff7e6 0%, #ffd700 25%, #ff6a00 55%, #cc0000 85%, #660000 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: 'drop-shadow(0 0 8px rgba(255,100,0,0.8)) drop-shadow(0 0 20px rgba(255,50,0,0.6)) drop-shadow(0 0 40px rgba(200,0,0,0.4))',
+                animation: 'flicker 0.08s infinite alternate',
+              }}
             >
               GEAR UP
             </motion.h2>
