@@ -118,7 +118,8 @@ export default function HomePage() {
             className="absolute left-0 right-0 pointer-events-none overflow-hidden"
             style={{
               bottom: '48%',
-              transform: 'rotate(-12deg) translateX(-15%)',
+              left: '50%',
+              transform: 'translateX(-50%) rotate(-12deg)',
               width: '500%',
               zIndex: 20,
             }}
