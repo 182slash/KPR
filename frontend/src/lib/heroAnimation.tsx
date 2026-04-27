@@ -14,7 +14,7 @@ export function HoverReveal({
   frontSrc,
   backSrc,
   alt = '',
-  maskRadius = 168,
+  maskRadius = 218,
   className = '',
 }: HoverRevealProps) {
   const frontRef = useRef<HTMLDivElement>(null);
@@ -66,7 +66,7 @@ export function HoverReveal({
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '50% 10%' }}
+          style={{ objectPosition: '50% 10%', filter: 'brightness(0.8)' }}
         />
       </div>
     </div>
