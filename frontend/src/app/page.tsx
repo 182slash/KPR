@@ -145,15 +145,14 @@ export default function HomePage() {
             className="flex gap-4 mt-10 mb-2"
           >
             {[
-              { position: 'left' },
-              { position: 'center' },
-              { position: 'right' },
+              { front: 'astronout1.jpeg', back: 'member1.jpeg' },
+              { front: 'astronout2.jpeg', back: 'member2.jpeg' },
+              { front: 'astronout3.jpeg', back: 'member3.jpeg' },
             ].map((item, i) => (
               <HoverReveal
                 key={i}
-                frontSrc="/astronout.jpeg"
-                backSrc="/person.jpeg"
-                objectPosition={item.position}
+                frontSrc={`/${item.front}`}
+                backSrc={`/${item.back}`}
                 maskRadius={80}
                 className="w-[120px] h-[160px] rounded-lg"
               />

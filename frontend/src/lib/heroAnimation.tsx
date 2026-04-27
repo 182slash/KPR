@@ -8,7 +8,7 @@ interface HoverRevealProps {
   alt?: string;
   maskRadius?: number;
   className?: string;
-  objectPosition?: string;
+  objectPosition = 'center',
 }
 
 export function HoverReveal({
