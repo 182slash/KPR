@@ -141,7 +141,7 @@ export default function HomePage() {
             {/* Bottom tape strip — reverse direction */}
             <div className="relative flex overflow-hidden" style={{ whiteSpace: 'nowrap' }}>
               <motion.div
-                animate={{ x: ['-50%', '0%'] }}
+                animate={{ x: ['-50%', '-100%'] }}
                 transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
                 className="flex shrink-0"
               >
