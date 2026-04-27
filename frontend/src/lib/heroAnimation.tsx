@@ -80,7 +80,7 @@ export function HoverReveal({
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '50% 10%' }}className="w-full h-full object-cover object-top"
+          style={{ objectPosition: '50% 10%' }}
         />
       </div>
 
