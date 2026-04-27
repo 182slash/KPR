@@ -117,7 +117,7 @@ export default function HomePage() {
           <div
             className="absolute pointer-events-none overflow-hidden"
             style={{
-              bottom: '48%',
+              bottom: '30%',
               left: '50%',
               transform: 'translateX(-50%) rotate(-12deg)',
               width: '500%',
@@ -138,7 +138,7 @@ export default function HomePage() {
                 ))}
               </motion.div>
             </div>
-            {/* Bottom tape — scrolls right (opposite) */}
+            {/* Bottom tape — scrolls right (opposite), half size, album titles */}
             <div className="flex overflow-hidden" style={{ whiteSpace: 'nowrap' }}>
               <motion.div
                 animate={{ x: ['-50%', '0%'] }}
@@ -146,13 +146,12 @@ export default function HomePage() {
                 className="flex shrink-0"
               >
                 {[...Array(4)].map((_, i) => (
-                  <span key={i} className="inline-flex items-center bg-accent-bright px-8 py-4 font-display text-5xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
-                    KELOMPOK PENERBANG ROKET &nbsp;★&nbsp; DIMANA MEREKA &nbsp;★&nbsp; ANJING JALANAN &nbsp;★&nbsp; RODA GILA &nbsp;★&nbsp; TARGET OPERASI &nbsp;★&nbsp;
+                  <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
+                    Teriakan Bocah (2015) &nbsp;★&nbsp; HAAI (2015) &nbsp;★&nbsp; Galaksi Palapa (2018) &nbsp;★&nbsp; Aksioma (bersama Eka Annash) (2023) &nbsp;★&nbsp; KOMA (2024) &nbsp;★&nbsp;
                   </span>
                 ))}
               </motion.div>
             </div>
-          </div>
 
           {/* Hover reveal — 3 band members under astronaut suits */}
           <motion.div
@@ -170,7 +169,7 @@ export default function HomePage() {
                 key={i}
                 frontSrc={`/${item.front}`}
                 backSrc={`/${item.back}`}
-                maskRadius={400}
+                maskRadius={200}
                 className="w-[280px] h-[500px] rounded-lg"
               />
             ))}
