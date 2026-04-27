@@ -1,6 +1,6 @@
 PS X:\Project\Kelompok Penerbang Roket> tree /F
 Folder PATH listing for volume 182
-Volume serial number is 000001B2 30B6:2486
+Volume serial number is 0000024A 30B6:2486
 X:.
 │   .gitignore
 │   confidential.md
@@ -65,6 +65,9 @@ X:.
 │   │   vercel.json
 │   │   
 │   ├───public
+│   │   │   astronout.jpeg
+│   │   │   person.jpeg
+│   │   │   
 │   │   └───{fonts,images,icons}
 │   └───src
 │       ├───app
@@ -116,7 +119,6 @@ X:.
 │       │   └───ui
 │       │           Button.tsx
 │       │           GrainOverlay.tsx
-│       │           HoverReveal.tsx
 │       │           index.tsx
 │       │           
 │       ├───lib
