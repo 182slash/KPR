@@ -145,7 +145,7 @@ export default function HomePage() {
                 transition={{ repeat: Infinity, duration: 35, ease: 'linear' }}
                 className="flex shrink-0"
               >
-                {[...Array(4)].map((_, i) => (
+                {[...Array(8)].map((_, i) => (
                   <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
                     Teriakan Bocah (2015) &nbsp;★&nbsp; HAAI (2015) &nbsp;★&nbsp; Galaksi Palapa (2018) &nbsp;★&nbsp; Aksioma (bersama Eka Annash) (2023) &nbsp;★&nbsp; KOMA (2024) &nbsp;★&nbsp;
                   </span>
