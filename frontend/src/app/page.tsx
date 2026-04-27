@@ -113,29 +113,45 @@ export default function HomePage() {
           </motion.p>
 
           {/* Band name */}
-          <h1 className="font-display text-hero text-text-primary leading-none text-shadow-glow select-none">
-            <HeroLetters text={BAND_NAME_LINE1} delay={0.3} />
-            <HeroLetters text={BAND_NAME_LINE2} delay={0.6} />
-            <span className="flex overflow-hidden text-accent-bright">
-              {BAND_NAME_LINE3.split('').map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={letterReveal}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.9 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="inline-block"
-                  style={{ willChange: 'transform' }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          </h1>
+          {/* Police tape — diagonal scrolling banner */}
+          <div
+            className="absolute left-0 right-0 pointer-events-none overflow-hidden"
+            style={{
+              bottom: '18%',
+              transform: 'rotate(-12deg) translateX(-5%)',
+              width: '120%',
+              zIndex: 20,
+            }}
+          >
+            {/* Top tape strip */}
+            <div className="relative flex overflow-hidden mb-3" style={{ whiteSpace: 'nowrap' }}>
+              <motion.div
+                animate={{ x: ['0%', '-50%'] }}
+                transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
+                className="flex shrink-0"
+              >
+                {[...Array(4)].map((_, i) => (
+                  <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base tracking-widest uppercase select-none" style={{ letterSpacing: '0.15em' }}>
+                    KELOMPOK PENERBANG ROKET &nbsp;★&nbsp; DIMANA MEREKA &nbsp;★&nbsp; ANJING JALANAN &nbsp;★&nbsp; RODA GILA &nbsp;★&nbsp; TARGET OPERASI &nbsp;★&nbsp;
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+            {/* Bottom tape strip — reverse direction */}
+            <div className="relative flex overflow-hidden" style={{ whiteSpace: 'nowrap' }}>
+              <motion.div
+                animate={{ x: ['-50%', '0%'] }}
+                transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
+                className="flex shrink-0"
+              >
+                {[...Array(4)].map((_, i) => (
+                  <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base tracking-widest uppercase select-none" style={{ letterSpacing: '0.15em' }}>
+                    KELOMPOK PENERBANG ROKET &nbsp;★&nbsp; DIMANA MEREKA &nbsp;★&nbsp; ANJING JALANAN &nbsp;★&nbsp; RODA GILA &nbsp;★&nbsp; TARGET OPERASI &nbsp;★&nbsp;
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+          </div>
 
           {/* Hover reveal — 3 band members under astronaut suits */}
           <motion.div
