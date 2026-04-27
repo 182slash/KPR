@@ -152,6 +152,7 @@ export default function HomePage() {
                 ))}
               </motion.div>
             </div>
+          </div>
 
           {/* Hover reveal — 3 band members under astronaut suits */}
           <motion.div
