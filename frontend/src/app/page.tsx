@@ -107,7 +107,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="eyebrow mb-8 text-2xl"
+            className="eyebrow mb-8 text-sm"
           >
             Jakarta · Est. 2011
           </motion.p>
@@ -229,7 +229,7 @@ export default function HomePage() {
           className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-text-faint hover:text-text-muted transition-colors duration-200 cursor-pointer"
           aria-label="Scroll down"
         >
-          <span className="font-mono text-[10px] uppercase tracking-widest">
+          <span className="font-mono text-[12px] uppercase tracking-widest text-accent-bright drop-shadow-[0_0_6px_rgba(32,96,160,0.9)]">
             Scroll
           </span>
           <motion.div

@@ -31,6 +31,15 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const style = document.getElementById('scrollbar-glow-style') || document.createElement('style');
+    style.id = 'scrollbar-glow-style';
+    style.textContent = scrolled
+      ? `::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(32,96,160,0.8); border-radius: 999px; box-shadow: 0 0 8px 2px rgba(32,96,160,0.9), 0 0 16px 4px rgba(32,96,160,0.5); }`
+      : `::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 999px; }`;
+    document.head.appendChild(style);
+  }, [scrolled]);
+
   // Close mobile menu on route change
   useEffect(() => {
     if (prevPathname.current !== pathname) {
