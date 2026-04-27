@@ -151,8 +151,8 @@ export default function HomePage() {
             ].map((item, i) => (
               <HoverReveal
                 key={i}
-frontSrc={`/%7Bfonts%2Cimages%2Cicons%7D/${item.front}`}
-backSrc={`/%7Bfonts%2Cimages%2Cicons%7D/${item.back}`}
+frontSrc="/astronout.jpg"
+backSrc="/person.jpg"
                 maskRadius={80}
                 className="w-[120px] h-[160px] rounded-lg"
               />
