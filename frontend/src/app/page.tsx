@@ -118,8 +118,8 @@ export default function HomePage() {
             className="absolute left-0 right-0 pointer-events-none overflow-hidden"
             style={{
               bottom: '18%',
-              transform: 'rotate(-12deg) translateX(-5%)',
-              width: '120%',
+              transform: 'rotate(-12deg) translateX(-15%)',
+              width: '200%',
               zIndex: 20,
             }}
           >
@@ -127,11 +127,11 @@ export default function HomePage() {
             <div className="relative flex overflow-hidden mb-3" style={{ whiteSpace: 'nowrap' }}>
               <motion.div
                 animate={{ x: ['0%', '-50%'] }}
-                transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
+                transition={{ repeat: Infinity, duration: 35, ease: 'linear' }}
                 className="flex shrink-0"
               >
                 {[...Array(4)].map((_, i) => (
-                  <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base tracking-widest uppercase select-none" style={{ letterSpacing: '0.15em' }}>
+                  <span key={i} className="inline-flex items-center bg-accent-bright px-8 py-4 font-display text-5xl font-black text-bg-base tracking-widest uppercase select-none" style={{ letterSpacing: '0.15em' }}>
                     KELOMPOK PENERBANG ROKET &nbsp;★&nbsp; DIMANA MEREKA &nbsp;★&nbsp; ANJING JALANAN &nbsp;★&nbsp; RODA GILA &nbsp;★&nbsp; TARGET OPERASI &nbsp;★&nbsp;
                   </span>
                 ))}
