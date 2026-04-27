@@ -154,7 +154,7 @@ export default function HomePage() {
                 frontSrc={`/${item.front}`}
                 backSrc={`/${item.back}`}
                 maskRadius={80}
-                className="w-[140px] h-[200px] rounded-lg"
+                className="w-[280px] h-[500px] rounded-lg"
               />
             ))}
           </motion.div>
