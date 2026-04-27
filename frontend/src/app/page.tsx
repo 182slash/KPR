@@ -117,7 +117,7 @@ export default function HomePage() {
           <div
             className="absolute left-0 right-0 pointer-events-none overflow-hidden"
             style={{
-              bottom: '18%',
+              bottom: '48%',
               transform: 'rotate(-12deg) translateX(-15%)',
               width: '500%',
               zIndex: 20,
