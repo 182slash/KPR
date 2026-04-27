@@ -45,9 +45,13 @@ export function HoverReveal({
   return (
     <div
       ref={containerRef}
-      className={`relative cursor-crosshair ${className}`}  // ← removed overflow-hidden
+      className={`relative cursor-crosshair ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      style={{
+        boxShadow: '0 0 8px 2px rgba(32,96,160,0.4), 0 0 20px 4px rgba(32,96,160,0.2)',
+        animation: 'borderGlow 2.5s ease-in-out infinite alternate',
+      }}
     >
       <img
         src={backSrc}
