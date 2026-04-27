@@ -40,7 +40,12 @@ function HeroLetters({ text, delay = 0 }: { text: string; delay?: number }) {
     </span>
   );
 }
-
+const WAVE_BARS = Array.from({ length: 40 }, (_, i) => ({
+  h1: 8 + ((i * 7 + 3) % 20),
+  h2: 20 + ((i * 13 + 7) % 40),
+  duration: 0.8 + ((i * 3) % 8) / 10,
+  delay: (i * 2) % 5 / 10,
+}));
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -111,6 +116,30 @@ export default function HomePage() {
           >
             Jakarta · Est. 2011
           </motion.p>
+
+          {/* Audio wave */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 1 }}
+            className="flex items-center gap-[3px] mb-8"
+          >
+            {WAVE_BARS.map((bar, i) => (
+              <motion.div
+                key={i}
+                className="w-[3px] rounded-full bg-accent/40"
+                animate={{
+                  height: [`${bar.h1}px`, `${bar.h2}px`, `${bar.h1}px`],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: bar.duration,
+                  ease: 'easeInOut',
+                  delay: bar.delay,
+                }}
+              />
+            ))}
+          </motion.div>
 
           {/* Band name */}
           {/* Police tape — diagonal scrolling banner */}
