@@ -63,7 +63,6 @@ export function HoverReveal({
         src={backSrc}
         alt={alt}
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectPosition }}
       />
 
       {/* Front image — astronaut suit, revealed by mask */}
@@ -80,7 +79,6 @@ export function HoverReveal({
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
-          style={{ objectPosition }}
         />
       </div>
 
