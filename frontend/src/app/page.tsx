@@ -119,7 +119,7 @@ export default function HomePage() {
             style={{
               bottom: '18%',
               transform: 'rotate(-12deg) translateX(-15%)',
-              width: '900%',
+              width: '500%',
               zIndex: 20,
             }}
           >
