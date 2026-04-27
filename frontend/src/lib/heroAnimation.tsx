@@ -18,7 +18,6 @@ export function HoverReveal({
   className = '',
 }: HoverRevealProps) {
   const frontRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -26,37 +25,23 @@ export function HoverReveal({
     const y = e.clientY - rect.top;
 
     if (frontRef.current) {
-      frontRef.current.style.webkitMaskImage = `radial-gradient(circle ${maskRadius}px at ${x}px ${y}px, transparent 100%, black 100%)`;
-      frontRef.current.style.maskImage = `radial-gradient(circle ${maskRadius}px at ${x}px ${y}px, transparent 100%, black 100%)`;
-    }
-    if (cursorRef.current) {
-      cursorRef.current.style.left = `${x}px`;
-      cursorRef.current.style.top = `${y}px`;
+      frontRef.current.style.webkitMaskImage = `radial-gradient(circle ${maskRadius}px at ${x}px ${y}px, transparent 0%, transparent 40%, black 80%)`;
+      frontRef.current.style.maskImage = `radial-gradient(circle ${maskRadius}px at ${x}px ${y}px, transparent 0%, transparent 40%, black 80%)`;
     }
   };
 
   const handleMouseLeave = () => {
     if (frontRef.current) {
-      frontRef.current.style.webkitMaskImage = `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`;
-      frontRef.current.style.maskImage = `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`;
-    }
-    if (cursorRef.current) {
-      cursorRef.current.style.opacity = '0';
-    }
-  };
-
-  const handleMouseEnter = () => {
-    if (cursorRef.current) {
-      cursorRef.current.style.opacity = '1';
+      frontRef.current.style.webkitMaskImage = `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 0%, transparent 40%, black 80%)`;
+      frontRef.current.style.maskImage = `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 0%, transparent 40%, black 80%)`;
     }
   };
 
   return (
     <div
-      className={`relative overflow-hidden cursor-none ${className}`}
+      className={`relative overflow-hidden cursor-crosshair ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
     >
       {/* Back image — band member, always visible underneath */}
       <img
@@ -66,13 +51,13 @@ export function HoverReveal({
         style={{ objectPosition: '50% 10%' }}
       />
 
-      {/* Front image — astronaut suit, revealed by mask */}
+      {/* Front image — astronaut suit, mask reveals back on hover */}
       <div
         ref={frontRef}
         className="absolute inset-0"
         style={{
-          WebkitMaskImage: `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`,
-          maskImage: `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 100%, black 100%)`,
+          WebkitMaskImage: `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 0%, transparent 40%, black 80%)`,
+          maskImage: `radial-gradient(circle ${maskRadius}px at -999px -999px, transparent 0%, transparent 40%, black 80%)`,
         }}
       >
         <img
@@ -83,16 +68,6 @@ export function HoverReveal({
           style={{ objectPosition: '50% 10%' }}
         />
       </div>
-
-      {/* Custom cursor ring */}
-      <div
-        ref={cursorRef}
-        className="absolute pointer-events-none rounded-full border border-white/40 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-200"
-        style={{
-          width: maskRadius * 2,
-          height: maskRadius * 2,
-        }}
-      />
     </div>
   );
 }
