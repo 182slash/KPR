@@ -14,7 +14,7 @@ export function HoverReveal({
   frontSrc,
   backSrc,
   alt = '',
-  maskRadius = 718,
+  maskRadius = 400,
   className = '',
 }: HoverRevealProps) {
   const frontRef = useRef<HTMLDivElement>(null);

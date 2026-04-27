@@ -115,7 +115,7 @@ export default function HomePage() {
           {/* Band name */}
           {/* Police tape — diagonal scrolling banner */}
           <div
-            className="absolute left-0 right-0 pointer-events-none overflow-hidden"
+            className="absolute pointer-events-none overflow-hidden"
             style={{
               bottom: '48%',
               left: '50%',
@@ -124,29 +124,29 @@ export default function HomePage() {
               zIndex: 20,
             }}
           >
-            {/* Top tape strip */}
-            <div className="relative flex overflow-hidden mb-3" style={{ whiteSpace: 'nowrap' }}>
+            {/* Top tape — scrolls left */}
+            <div className="flex overflow-hidden mb-3" style={{ whiteSpace: 'nowrap' }}>
               <motion.div
                 animate={{ x: ['0%', '-50%'] }}
                 transition={{ repeat: Infinity, duration: 35, ease: 'linear' }}
                 className="flex shrink-0"
               >
                 {[...Array(4)].map((_, i) => (
-                  <span key={i} className="inline-flex items-center bg-accent-bright px-8 py-4 font-display text-5xl font-black text-bg-base tracking-widest uppercase select-none" style={{ letterSpacing: '0.15em' }}>
+                  <span key={i} className="inline-flex items-center bg-accent-bright px-8 py-4 font-display text-5xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
                     KELOMPOK PENERBANG ROKET &nbsp;★&nbsp; DIMANA MEREKA &nbsp;★&nbsp; ANJING JALANAN &nbsp;★&nbsp; RODA GILA &nbsp;★&nbsp; TARGET OPERASI &nbsp;★&nbsp;
                   </span>
                 ))}
               </motion.div>
             </div>
-            {/* Bottom tape strip — reverse direction */}
-            <div className="relative flex overflow-hidden" style={{ whiteSpace: 'nowrap' }}>
+            {/* Bottom tape — scrolls right (opposite) */}
+            <div className="flex overflow-hidden" style={{ whiteSpace: 'nowrap' }}>
               <motion.div
-                animate={{ x: ['-50%', '-100%'] }}
-                transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
+                animate={{ x: ['-50%', '0%'] }}
+                transition={{ repeat: Infinity, duration: 35, ease: 'linear' }}
                 className="flex shrink-0"
               >
                 {[...Array(4)].map((_, i) => (
-                  <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base tracking-widest uppercase select-none" style={{ letterSpacing: '0.15em' }}>
+                  <span key={i} className="inline-flex items-center bg-accent-bright px-8 py-4 font-display text-5xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
                     KELOMPOK PENERBANG ROKET &nbsp;★&nbsp; DIMANA MEREKA &nbsp;★&nbsp; ANJING JALANAN &nbsp;★&nbsp; RODA GILA &nbsp;★&nbsp; TARGET OPERASI &nbsp;★&nbsp;
                   </span>
                 ))}
@@ -170,7 +170,7 @@ export default function HomePage() {
                 key={i}
                 frontSrc={`/${item.front}`}
                 backSrc={`/${item.back}`}
-                maskRadius={80}
+                maskRadius={400}
                 className="w-[280px] h-[500px] rounded-lg"
               />
             ))}
