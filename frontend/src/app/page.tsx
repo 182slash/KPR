@@ -482,7 +482,7 @@ export default function HomePage() {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
                 filter: 'drop-shadow(0 0 8px rgba(255,100,0,0.8)) drop-shadow(0 0 20px rgba(255,50,0,0.6)) drop-shadow(0 0 40px rgba(200,0,0,0.4))',
-                animation: 'flicker 0.08s infinite alternate',
+                animation: 'flicker 1.2s infinite alternate',
               }}
             >
               GEAR UP

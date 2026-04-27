@@ -45,19 +45,19 @@ export function Footer() {
             <div className="mb-4">
               <div className="inline-flex items-center justify-center w-12 h-12 border border-accent/60 mb-4">
                 <span
-                  className="font-display text-base text-accent-bright"
+                  className="font-display text-lg text-accent-bright"
                   style={{ letterSpacing: '0.05em' }}
                 >
                   KPR
                 </span>
               </div>
-              <p className="font-display text-xl text-text-primary leading-tight">
+              <p className="font-display text-2xl text-text-primary leading-tight">
                 KELOMPOK
                 <br />
                 PENERBANG ROKET
               </p>
             </div>
-            <p className="font-body text-sm text-text-muted leading-relaxed max-w-xs">
+            <p className="font-body text-base text-text-muted leading-relaxed max-w-xs">
               Acid rock · Hard rock · Heavy metal dari Jakarta, Indonesia.
               Berdiri sejak 2011.
             </p>
@@ -71,7 +71,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="font-heading text-sm text-text-muted hover:text-text-primary transition-colors duration-200 uppercase tracking-wider"
+                    className="font-heading text-base text-text-muted hover:text-text-primary transition-colors duration-200 uppercase tracking-wider"
                   >
                     {link.label}
                   </Link>
@@ -90,9 +90,9 @@ export function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-accent-bright transition-colors duration-200"
+                    className="inline-flex items-center gap-2 text-base text-text-muted hover:text-accent-bright transition-colors duration-200"
                   >
-                    <s.icon size={14} />
+                    <s.icon size={16} />
                     <span className="font-heading uppercase tracking-wider">
                       {s.label}
                     </span>
@@ -101,12 +101,12 @@ export function Footer() {
               ))}
             </ul>
             <div className="border-t border-accent-dim/20 pt-5">
-              <p className="text-xs text-text-muted font-mono mb-1">
+              <p className="text-sm text-text-muted font-mono mb-1">
                 Booking & Management
               </p>
               <a
                 href="mailto:booking@kpr.band"
-                className="text-sm text-accent-bright hover:text-accent-glow transition-colors duration-200"
+                className="text-base text-accent-bright hover:text-accent-glow transition-colors duration-200"
               >
                 booking@kpr.band
               </a>
@@ -116,19 +116,19 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-accent-dim/20 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-mono text-xs text-text-faint">
+          <p className="font-mono text-sm text-text-faint">
             © {year} Kelompok Penerbang Roket. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link
               href="/privacy"
-              className="font-mono text-xs text-text-faint hover:text-text-muted transition-colors duration-200"
+              className="font-mono text-sm text-text-faint hover:text-text-muted transition-colors duration-200"
             >
               Privacy
             </Link>
             <Link
               href="/terms"
-              className="font-mono text-xs text-text-faint hover:text-text-muted transition-colors duration-200"
+              className="font-mono text-sm text-text-faint hover:text-text-muted transition-colors duration-200"
             >
               Terms
             </Link>
