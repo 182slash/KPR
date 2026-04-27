@@ -14,7 +14,7 @@ const MEMBERS = [
     id: '1',
     name: 'John Paul Patton',
     role: 'Vocals / Bass',
-    imageUrl: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80',
+    imageUrl: 'https://superlive.id/storage/supermusic/cover-1480313021-large.png',
     bio: 'Fondasi ritmis dan suara frontal KPR sejak awal terbentuk. Vokal raw, basline yang berat.',
   },
   {
