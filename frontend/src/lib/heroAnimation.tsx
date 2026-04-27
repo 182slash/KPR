@@ -8,6 +8,7 @@ interface HoverRevealProps {
   alt?: string;
   maskRadius?: number;
   className?: string;
+  objectPosition?: string;
 }
 
 export function HoverReveal({
@@ -16,6 +17,7 @@ export function HoverReveal({
   alt = '',
   maskRadius = 120,
   className = '',
+  objectPosition = 'center',
 }: HoverRevealProps) {
   const frontRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -63,6 +65,7 @@ export function HoverReveal({
         src={backSrc}
         alt={alt}
         className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition }}
       />
 
       {/* Front image — astronaut suit, revealed by mask */}
@@ -79,6 +82,7 @@ export function HoverReveal({
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
+          style={{ objectPosition }}
         />
       </div>
 
