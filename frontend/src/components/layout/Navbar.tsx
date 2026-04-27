@@ -84,7 +84,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    'font-heading font-medium text-sm uppercase tracking-wider transition-colors duration-200 relative group',
+                    'font-heading font-medium text-base uppercase tracking-wider transition-colors duration-200 relative group',
                     pathname.startsWith(link.href)
                       ? 'text-accent-bright'
                       : 'text-text-muted hover:text-text-primary'

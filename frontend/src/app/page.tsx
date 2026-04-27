@@ -107,7 +107,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="eyebrow mb-8"
+            className="eyebrow mb-8 text-2xl"
           >
             Jakarta · Est. 2011
           </motion.p>
@@ -152,48 +152,7 @@ export default function HomePage() {
     ))}
   </motion.div>
 </div>
-          </div>
-
-          {/* Police tape — mirror diagonal forming X */}
-          <div
-            className="absolute pointer-events-none overflow-hidden"
-            style={{
-              bottom: '30%',
-              left: '50%',
-              transform: 'translateX(-50%) rotate(12deg)',
-              width: '500%',
-              zIndex: 20,
-            }}
-          >
-            {/* Top tape — scrolls right, white */}
-            <div className="flex overflow-hidden mb-3" style={{ whiteSpace: 'nowrap' }}>
-              <motion.div
-                animate={{ x: ['-25%', '0%'] }}
-                transition={{ repeat: Infinity, duration: 35, ease: 'linear' }}
-                className="flex shrink-0"
-              >
-                {[...Array(4)].map((_, i) => (
-                  <span key={i} className="inline-flex items-center bg-white px-8 py-4 font-display text-5xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
-                    BRINGIN TUA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> DIMANA MERDEKA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> ANJING JALANAN <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> RODA GILA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> TARGET OPERASI <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" />
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-            {/* Bottom tape — scrolls left, blue, album titles */}
-            <div className="flex overflow-hidden" style={{ whiteSpace: 'nowrap' }}>
-              <motion.div
-                animate={{ x: ['0%', '-25%'] }}
-                transition={{ repeat: Infinity, duration: 35, ease: 'linear' }}
-                className="flex shrink-0"
-              >
-                {[...Array(8)].map((_, i) => (
-                  <span key={i} className="inline-flex items-center bg-accent-bright px-4 py-2 font-display text-2xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
-                    Teriakan Bocah (2015) <span className="mx-3 inline-block w-px h-6 bg-bg-base/40 align-middle" /> HAAI (2015) <span className="mx-3 inline-block w-px h-6 bg-bg-base/40 align-middle" /> Galaksi Palapa (2018) <span className="mx-3 inline-block w-px h-6 bg-bg-base/40 align-middle" /> Aksioma (bersama Eka Annash) (2023) <span className="mx-3 inline-block w-px h-6 bg-bg-base/40 align-middle" /> KOMA (2024) <span className="mx-3 inline-block w-px h-6 bg-bg-base/40 align-middle" />
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-          </div>
+</div>
 
           {/* Hover reveal — 3 band members under astronaut suits */}
           <motion.div
@@ -228,7 +187,7 @@ export default function HomePage() {
               (genre) => (
                 <span
                   key={genre}
-                  className="font-mono text-xs text-text-faint uppercase tracking-widest border border-text-faint/20 px-3 py-1 rounded-sm"
+                  className="font-mono text-base text-text-faint uppercase tracking-widest border border-text-faint/20 px-3 py-1 rounded-sm"
                 >
                   {genre}
                 </span>
