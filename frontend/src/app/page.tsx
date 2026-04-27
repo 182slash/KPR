@@ -162,7 +162,7 @@ export default function HomePage() {
   >
     {[...Array(4)].map((_, i) => (
       <span key={i} className="inline-flex items-center bg-white px-8 py-4 font-display text-5xl font-black text-bg-base uppercase select-none" style={{ letterSpacing: '0.15em' }}>
-        BRINGIN TUA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> DIMANA MERDEKA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> ANJING JALANAN <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> RODA GILA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> TARGET OPERASI <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" />
+        BERINGIN TUA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> DIMANA MERDEKA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> ANJING JALANAN <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> RODA GILA <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" /> TARGET OPERASI <span className="mx-4 inline-block w-px h-10 bg-bg-base/40 align-middle" />
       </span>
     ))}
   </motion.div>
@@ -477,11 +477,11 @@ export default function HomePage() {
               variants={staggerItem}
               className="font-display text-display mb-6 relative select-none"
               style={{
-                background: 'linear-gradient(180deg, #fff7e6 0%, #ffd700 25%, #ff6a00 55%, #cc0000 85%, #660000 100%)',
+                background: 'linear-gradient(180deg, #ffffff 0%, #a8d8ff 20%, #4fa8e8 45%, #1a5fa8 75%, #0a1a3a 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                filter: 'drop-shadow(0 0 8px rgba(255,100,0,0.8)) drop-shadow(0 0 20px rgba(255,50,0,0.6)) drop-shadow(0 0 40px rgba(200,0,0,0.4))',
+                filter: 'drop-shadow(0 0 8px rgba(32,96,160,0.9)) drop-shadow(0 0 20px rgba(32,96,200,0.7)) drop-shadow(0 0 40px rgba(20,60,160,0.5))',
                 animation: 'flicker 1.2s infinite alternate',
               }}
             >
